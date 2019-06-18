@@ -1,0 +1,46 @@
+## Interface: 80100
+## Author: Drekorus
+## Version: 1.0
+## Title: |cfff58cbaLight|r|cff009cffUI|r
+## Notes: LightUI v1.0
+## SavedVariables: LightUIDB
+
+## CONFIG
+config.lua
+##edit.lua
+
+## UI
+##modules\fonts.lua
+modules\core.lua
+modules\actionbars.lua
+##modules\unitframes.lua
+##modules\raidframe.lua
+modules\buffs.lua
+##modules\auras.lua
+modules\castbars.lua
+modules\tooltip.lua
+modules\minimap.lua
+modules\chat.lua
+##modules\urlcopy.lua
+
+## MISCS
+##misc\range.lua
+##misc\losecontrol.lua
+##misc\incombat.lua
+##misc\charlinks.lua
+misc\stats.lua
+##misc\safequeue.lua
+##misc\interrupt.lua
+##misc\hoverbind.lua
+misc\autorep.lua
+##misc\itemlevel.lua
+##misc\easydelete.lua
+##misc\friendlist.lua
+misc\shortbar.lua
+misc\viewport.lua
+misc\smartkitty.lua
+##misc\showraid.lua
+##misc\tabbinder.lua
+##misc\keypress.lua
+##misc\invismenu.lua
+##misc\afkcam.lua
