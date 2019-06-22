@@ -10,7 +10,7 @@ print("Welcome to |cfff58cbaLight|r|cff009cffUI|r use |CFFFE8A0E/LightUI|r for O
 
 --SavedVariables Defaults
 local defaults = {
-	A_SMARTKITTY = true,
+	A_SMARTKITTY = false,
 	A_UNITFRAMES = false,
 	A_PARTYFRAMES = true,
 	A_CLASSCOLORS = true,
