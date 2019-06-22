@@ -1,8 +1,8 @@
-local SUI=CreateFrame("Frame")
-SUI:RegisterEvent("PLAYER_LOGIN")
-SUI:SetScript("OnEvent", function(self, event)
+local LightUI=CreateFrame("Frame")
+LightUI:RegisterEvent("PLAYER_LOGIN")
+LightUI:SetScript("OnEvent", function(self, event)
 
-if not SUIDB.A_RANGE == true then return end
+if not LightUIDB.A_RANGE == true then return end
 
 hooksecurefunc("ActionButton_OnEvent",function(self, event, ...)
     if (event == "PLAYER_TARGET_CHANGED") then

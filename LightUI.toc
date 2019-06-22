@@ -7,24 +7,10 @@
 
 ## CONFIG
 config.lua
-##edit.lua
-
-## UI
-##modules\fonts.lua
-modules\core.lua
-modules\actionbars.lua
-##modules\unitframes.lua
-##modules\raidframe.lua
-modules\buffs.lua
-##modules\auras.lua
-modules\castbars.lua
-modules\tooltip.lua
-modules\minimap.lua
-modules\chat.lua
-##modules\urlcopy.lua
+edit.lua
 
 ## MISCS
-##misc\range.lua
+misc\range.lua
 ##misc\losecontrol.lua
 ##misc\incombat.lua
 ##misc\charlinks.lua
@@ -44,3 +30,17 @@ misc\smartkitty.lua
 ##misc\keypress.lua
 ##misc\invismenu.lua
 ##misc\afkcam.lua
+
+## UI
+##modules\fonts.lua
+modules\core.lua
+modules\actionbars.lua
+modules\unitframes.lua
+##modules\raidframe.lua
+modules\buffs.lua
+##modules\auras.lua
+modules\castbars.lua
+modules\tooltip.lua
+modules\minimap.lua
+modules\chat.lua
+##modules\urlcopy.lua
