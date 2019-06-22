@@ -62,22 +62,22 @@ local combatInfo = {
 local h,v
 for order, spell in ipairs(combatInfo["order"]) do
     v = order - 1
-    v = v % 5
-    h = (order - v) / 5
+    v = v % 7
+    h = (order - v) / 7
 	combatInfo["button"][spell] = CreateFrame(
         "Button",
         "LightUI" .. spell .. "Button",
         UIParent,
         "SecureActionButtonTemplate"
     )
-    combatInfo["button"][spell]:SetSize(36,36)
-    combatInfo["button"][spell]:SetPoint("CENTER", -80 + v * 40, h * 40 - 120)
+    combatInfo["button"][spell]:SetSize(32,32)
+    combatInfo["button"][spell]:SetPoint("CENTER", -112 + v * 36, h * 36 - 132)
 
 	combatInfo["button"][spell]:SetAttribute("type", "spell");
 	name, rank, icon, castTime, minRange, maxRange, spellId = GetSpellInfo(combatInfo["spelluid"][spell])
 	combatInfo["button"][spell]:SetAttribute("spell", name);
 	combatInfo["button"][spell]:SetNormalTexture(icon)
-	combatInfo["button"][spell]:SetAlpha(.01)
+	combatInfo["button"][spell]:SetAlpha(.1)
 end
 
 local LightUI=CreateFrame("Frame")
@@ -117,8 +117,8 @@ LightUI:SetScript("OnEvent", function(self, event, ...)
     end
     -- if not in combat hide all buttons
     for spell, button in pairs(combatInfo["button"]) do
-        --button:SetAlpha(.01)
-        button:SetAlpha(.01)
+        --button:SetAlpha(.1)
+        button:SetAlpha(.1)
     end
 end)
 
@@ -150,18 +150,18 @@ function BearCombat()
     if BuffTracker(combatInfo["spelluid"]["PredatorySwiftness"]) then
         if hpPercent > 85 then
             HideAllButton()
-            combatInfo["button"]["Regrowth"]:SetAlpha(.01)
+            combatInfo["button"]["Regrowth"]:SetAlpha(.1)
             combatInfo["button"]["EntanglingRoots"]:SetAlpha(1)
             return
         else
             HideAllButton()
             combatInfo["button"]["Regrowth"]:SetAlpha(1)
-            combatInfo["button"]["EntanglingRoots"]:SetAlpha(.01)
+            combatInfo["button"]["EntanglingRoots"]:SetAlpha(.1)
             return
         end
     end
     if DebuffTracker(combatInfo["spelluid"]["Moonfire"]) then
-        combatInfo["button"]["Moonfire"]:SetAlpha(.01)
+        combatInfo["button"]["Moonfire"]:SetAlpha(.1)
     else
         HideAllButton()
         combatInfo["button"]["Moonfire"]:SetAlpha(1)
@@ -169,7 +169,7 @@ function BearCombat()
     end
     --if combatInfo["used"]["Thrash"] then
     if DebuffTracker(combatInfo["spelluid"]["Thrash"],6) then
-        combatInfo["button"]["Thrash"]:SetAlpha(.01)
+        combatInfo["button"]["Thrash"]:SetAlpha(.1)
     else
         HideAllButton()
         combatInfo["button"]["Thrash"]:SetAlpha(1)
@@ -178,7 +178,7 @@ function BearCombat()
 
 
     if combatInfo["used"]["Mangle"] > 0 then
-        combatInfo["button"]["Mangle"]:SetAlpha(.01)
+        combatInfo["button"]["Mangle"]:SetAlpha(.1)
         combatInfo["button"]["CatForm"]:SetAlpha(1)
     else
         combatInfo["button"]["Mangle"]:SetAlpha(1)
@@ -212,21 +212,21 @@ function CatCombat()
         combatInfo["button"]["TigersFury"]:SetAlpha(1)
         return
     else
-        combatInfo["button"]["TigersFury"]:SetAlpha(.01)
+        combatInfo["button"]["TigersFury"]:SetAlpha(.1)
     end
 
     if BuffTracker(combatInfo["spelluid"]["PredatorySwiftness"]) then
         if hpPercent > 85 then
             if comboPoints > 3 then
                 HideAllButton()
-                combatInfo["button"]["Regrowth"]:SetAlpha(.01)
+                combatInfo["button"]["Regrowth"]:SetAlpha(.1)
                 combatInfo["button"]["EntanglingRoots"]:SetAlpha(1)
                 return
             end
         else
             HideAllButton()
             combatInfo["button"]["Regrowth"]:SetAlpha(1)
-            combatInfo["button"]["EntanglingRoots"]:SetAlpha(.01)
+            combatInfo["button"]["EntanglingRoots"]:SetAlpha(.1)
             return
         end
     end
@@ -243,29 +243,29 @@ function CatCombat()
                 combatInfo["button"]["BearForm"]:SetAlpha(1)
                 return
             end
-            combatInfo["button"]["Rip"]:SetAlpha(.01)
+            combatInfo["button"]["Rip"]:SetAlpha(.1)
             combatInfo["button"]["FerociousBite"]:SetAlpha(1)
         else
             combatInfo["button"]["Rip"]:SetAlpha(1)
-            combatInfo["button"]["FerociousBite"]:SetAlpha(.01)
+            combatInfo["button"]["FerociousBite"]:SetAlpha(.1)
         end
         return
     else
-        combatInfo["button"]["Rip"]:SetAlpha(.01)
-        combatInfo["button"]["FerociousBite"]:SetAlpha(.01)
+        combatInfo["button"]["Rip"]:SetAlpha(.1)
+        combatInfo["button"]["FerociousBite"]:SetAlpha(.1)
     end
 
     if BuffTracker(combatInfo["spelluid"]["Clearcasting"],1) then
         HideAllButton()
         combatInfo["button"]["Shred"]:SetAlpha(1)
-        combatInfo["button"]["BrutalSlash"]:SetAlpha(.01)
+        combatInfo["button"]["BrutalSlash"]:SetAlpha(.1)
         return
     else
-        combatInfo["button"]["Shred"]:SetAlpha(.01)
+        combatInfo["button"]["Shred"]:SetAlpha(.1)
     end
 
     if DebuffTracker(combatInfo["spelluid"]["Rake"]) then
-        combatInfo["button"]["Rake"]:SetAlpha(.01)
+        combatInfo["button"]["Rake"]:SetAlpha(.1)
     else
         HideAllButton()
         combatInfo["button"]["Rake"]:SetAlpha(1)
@@ -288,7 +288,7 @@ function CatCombat()
             combatInfo["button"]["BrutalSlash"]:SetAlpha(1)
             return
         else
-            combatInfo["button"]["BrutalSlash"]:SetAlpha(.01)
+            combatInfo["button"]["BrutalSlash"]:SetAlpha(.1)
         end
     end
 
@@ -300,14 +300,14 @@ function CatCombat()
         end
         -- if under Tiger's Fury don't change to Bear Form
         if BuffTracker(combatInfo["spelluid"]["TigersFury"],5) then
-            combatInfo["button"]["BearForm"]:SetAlpha(.01)
+            combatInfo["button"]["BearForm"]:SetAlpha(.1)
             return
         else
             combatInfo["button"]["BearForm"]:SetAlpha(1)
         end
     else
         combatInfo["button"]["Shred"]:SetAlpha(1)
-        combatInfo["button"]["BearForm"]:SetAlpha(.01)
+        combatInfo["button"]["BearForm"]:SetAlpha(.1)
     end
 
 end
@@ -381,6 +381,6 @@ end
 
 function HideAllButton()
     for spell, button in pairs(combatInfo["button"]) do
-        button:SetAlpha(.01)
+        button:SetAlpha(.1)
     end
 end
