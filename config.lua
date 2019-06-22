@@ -28,7 +28,6 @@ local defaults = {
 	A_TOOLTIP = true,
 	A_TABBINDER = false,
 	A_SAFEQUEUE = true,
-	A_LOSECONTROL = true,
 	A_SHOWRAID = false,
 	A_HOVERBIND = false,
 	A_ITEMLEVEL = true,
@@ -537,7 +536,7 @@ local function LightUICONFIGSHOW()
 	LightUICreateTXT("",LightUIConfig,"TOPLEFT",20,-295)
 
 	LightUICreateCB("Safequeue",LightUITXT,"Time left for Q accept","A_SAFEQUEUE")
-	LightUICreateCB("LoseControl",LightUICheckbox,"Custom Losecontrol","A_LOSECONTROL")
+	LightUICreateCB("SmartKitty",LightUICheckbox,"Action bar for display druid dps cycle","A_SMARTKITTY")
 	LightUICreateCB("TabBinder",LightUICheckbox,"Binds the Tabkey to Player only in Arena","A_TABBINDER")
 	LightUICreateCB("KeyPress",LightUICheckbox,"Keypress Effect on Actionbar","A_KEYPRESS")
 	LightUICreateCB("Itemlevel",LightUICheckbox,"Item Level","A_ITEMLEVEL")
