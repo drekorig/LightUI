@@ -56,7 +56,7 @@ end
 
 local holder = CreateFrame("Frame", "MainMenuBarHolderFrame", UIParent, "SecureHandlerStateTemplate")
 holder:SetSize(size * 12 + spacing * 11 + Minimap:GetWidth() + 72 , size)
-holder:SetPoint("BOTTOM", UIParent, 0, 14)
+holder:SetPoint("BOTTOM", UIParent, 0, 175)
 holder:RegisterEvent("PLAYER_LOGIN")
 holder:RegisterEvent("PLAYER_ENTERING_WORLD")
 
