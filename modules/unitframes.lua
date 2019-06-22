@@ -1,10 +1,10 @@
-local SUI=CreateFrame("Frame")
-SUI:RegisterEvent("PLAYER_LOGIN")
-SUI:SetScript("OnEvent", function(self, event)
+local LightUI=CreateFrame("Frame")
+LightUI:RegisterEvent("PLAYER_LOGIN")
+LightUI:SetScript("OnEvent", function(self, event)
 
 --CLASS COLORS.
-if SUIDB.UNITFRAMES.CLASSCOLOR == true then
-function SUIUnitClass(healthbar, unit)
+if LightUIDB.UNITFRAMES.CLASSCOLOR == true then
+function LightUIUnitClass(healthbar, unit)
 	if UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitClass(unit) then
 		_, class = UnitClass(unit);
 		local c = RAID_CLASS_COLORS[class];
@@ -15,13 +15,13 @@ function SUIUnitClass(healthbar, unit)
 		healthbar:SetStatusBarColor(0,0.9,0);
 	end
 end
-hooksecurefunc("UnitFrameHealthBar_Update", SUIUnitClass)
+hooksecurefunc("UnitFrameHealthBar_Update", LightUIUnitClass)
 hooksecurefunc("HealthBar_OnValueChanged", function(self)
-	SUIUnitClass(self, self.unit)
+	LightUIUnitClass(self, self.unit)
 end)
 
 --FACTION COLORS.
-function SUIUnitReaction(healthbar, unit)
+function LightUIUnitReaction(healthbar, unit)
 	if UnitExists(unit) and (not UnitIsPlayer(unit)) then
 		if (UnitIsTapDenied(unit)) and not UnitPlayerControlled(unit) then
 			healthbar:SetStatusBarColor(0.5, 0.5, 0.5)
@@ -35,15 +35,15 @@ function SUIUnitReaction(healthbar, unit)
 		end
 	end
 end
-hooksecurefunc("UnitFrameHealthBar_Update", SUIUnitReaction)
+hooksecurefunc("UnitFrameHealthBar_Update", LightUIUnitReaction)
 hooksecurefunc("HealthBar_OnValueChanged", function(self)
-	SUIUnitReaction(self, self.unit)
+	LightUIUnitReaction(self, self.unit)
 end)
 end
 
 --TEXTURE
 local function SetTextures()
-if SUIDB.A_TEXTURES == true then
+if LightUIDB.A_TEXTURES == true then
 	for _, StatusBarTextures in pairs(
 		{
 			PlayerFrameHealthBar,
@@ -65,13 +65,13 @@ if SUIDB.A_TEXTURES == true then
 			FocusFrameSpellBar
 		}
 	) do
-		StatusBarTextures:SetStatusBarTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-StatusBar")
+		StatusBarTextures:SetStatusBarTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-StatusBar")
 
 		--[[if UnitIsPlayer("player") then
 			if class == "DEMONHUNTER" or class == "DRUID" then
 
 			else
-				PlayerFrameManaBar:SetStatusBarTexture("Interface\\Addons\\Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-StatusBar")
+				PlayerFrameManaBar:SetStatusBarTexture("Interface\\Addons\\Interface\\Addons\\LightUI\\media\\unitframes\\UI-StatusBar")
 			end
 		end
 
@@ -84,7 +84,7 @@ if SUIDB.A_TEXTURES == true then
 			if targetclass == "DEMONHUNTER" or targetclass == "DRUID" or targetclass == "SHAMAN" then
 
 			else
-				TargetFrameManaBar:SetStatusBarTexture("Interface\\Addons\\Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-StatusBar")
+				TargetFrameManaBar:SetStatusBarTexture("Interface\\Addons\\Interface\\Addons\\LightUI\\media\\unitframes\\UI-StatusBar")
 			end
 		end]]
 
@@ -105,7 +105,7 @@ hooksecurefunc("UnitFrameManaBar_UpdateType",function(manaBar)
 end)
 
 --HIDE STUFF
-if SUIDB.UNITFRAMES.HIDESTUFF == true then
+if LightUIDB.UNITFRAMES.HIDESTUFF == true then
 hooksecurefunc("PlayerFrame_UpdateStatus",function()
 	PlayerStatusTexture:Hide()
 	PlayerRestGlow:Hide()
@@ -120,9 +120,9 @@ end)
 end
 
 -- START CUSTOM UNITFRAMES
-if not SUIDB.A_UNITFRAMES == true then
+if not LightUIDB.A_UNITFRAMES == true then
 
-if SUIDB.UNITFRAMES.HIDEBACK == true then
+if LightUIDB.UNITFRAMES.HIDEBACK == true then
 hooksecurefunc('TargetFrame_CheckFaction', function(self)
 	self.nameBackground:SetVertexColor(0.0, 0.0, 0.0, 0.5);
 end)
@@ -131,8 +131,8 @@ end
 else
 
 --PLAYER FRAME.
-function SUIPlayerFrame(self)
-	PlayerFrameTexture:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-TargetingFrame");
+function LightUIPlayerFrame(self)
+	PlayerFrameTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetingFrame");
 	self.name:Hide();
 	self.name:ClearAllPoints();
 	self.name:SetPoint("CENTER", PlayerFrame, "CENTER",50.5, 36);
@@ -164,10 +164,10 @@ function SUIPlayerFrame(self)
 	PlayerFrameGroupIndicatorMiddle:Hide();
 	PlayerFrameGroupIndicatorRight:Hide();
 end
-hooksecurefunc("PlayerFrame_ToPlayerArt", SUIPlayerFrame)
+hooksecurefunc("PlayerFrame_ToPlayerArt", LightUIPlayerFrame)
 
 --TARGET FRAME.
-function SUITargetFrames (self, forceNormalTexture)
+function LightUITargetFrames (self, forceNormalTexture)
 	local classification = UnitClassification(self.unit);
 	self.highLevelTexture:SetPoint("CENTER", self.levelText, "CENTER", 0,0);
 	self.deadText:SetPoint("CENTER", self.healthbar, "CENTER",0,0);
@@ -193,13 +193,13 @@ function SUITargetFrames (self, forceNormalTexture)
 		self.borderTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Minus");
 		forceNormalTexture = true;
 	elseif ( classification == "worldboss" or classification == "elite" ) then
-		self.borderTexture:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-TargetingFrame-Elite");
+		self.borderTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetingFrame-Elite");
 	elseif ( classification == "rareelite" ) then
-		self.borderTexture:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-TargetingFrame-Rare-Elite");
+		self.borderTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetingFrame-Rare-Elite");
 	elseif ( classification == "rare" ) then
-		self.borderTexture:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-TargetingFrame-Rare");
+		self.borderTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetingFrame-Rare");
 	else
-		self.borderTexture:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-TargetingFrame");
+		self.borderTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetingFrame");
 		forceNormalTexture = true;
 	end
 	if ( forceNormalTexture ) then
@@ -245,7 +245,7 @@ function SUITargetFrames (self, forceNormalTexture)
 	TargetFrameToTTextureFrameDeadText:ClearAllPoints();
 	TargetFrameToTTextureFrameDeadText:SetPoint("CENTER", "TargetFrameToTHealthBar","CENTER",1, 0);
 	TargetFrameToTTextureFrameName:SetSize(65,10);
-	TargetFrameToTTextureFrameTexture:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-TargetofTargetFrame");
+	TargetFrameToTTextureFrameTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetofTargetFrame");
 	TargetFrameToTHealthBar:ClearAllPoints();
 	TargetFrameToTHealthBar:SetPoint("TOPLEFT", 45, -15);
     TargetFrameToTHealthBar:SetHeight(10);
@@ -255,7 +255,7 @@ function SUITargetFrames (self, forceNormalTexture)
 	FocusFrameToTTextureFrameDeadText:ClearAllPoints();
 	FocusFrameToTTextureFrameDeadText:SetPoint("CENTER", "FocusFrameToTHealthBar" ,"CENTER",1, 0);
 	FocusFrameToTTextureFrameName:SetSize(65,10);
-	FocusFrameToTTextureFrameTexture:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-TargetofTargetFrame");
+	FocusFrameToTTextureFrameTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetofTargetFrame");
 	FocusFrameToTHealthBar:ClearAllPoints();
     FocusFrameToTHealthBar:SetPoint("TOPLEFT", 43, -15);
     FocusFrameToTHealthBar:SetHeight(10);
@@ -264,10 +264,10 @@ function SUITargetFrames (self, forceNormalTexture)
     FocusFrameToTManaBar:SetHeight(5);
 
 end
-hooksecurefunc("TargetFrame_CheckClassification", SUITargetFrames)
+hooksecurefunc("TargetFrame_CheckClassification", LightUITargetFrames)
 
 --VEHICLE FRAME.
-function SUIVehicleFrame(self, vehicleType)
+function LightUIVehicleFrame(self, vehicleType)
 	if ( vehicleType == "Natural" ) then
 	PlayerFrameVehicleTexture:SetTexture("Interface\\Vehicles\\UI-Vehicle-Frame-Organic");
 	PlayerFrameFlash:SetTexture("Interface\\Vehicles\\UI-Vehicle-Frame-Organic-Flash");
@@ -288,16 +288,16 @@ end
 PlayerName:SetPoint("CENTER",50,23);
 PlayerFrameBackground:SetWidth(114);
 end
-hooksecurefunc("PlayerFrame_ToVehicleArt", SUIVehicleFrame)
+hooksecurefunc("PlayerFrame_ToVehicleArt", LightUIVehicleFrame)
 
 --BOSS TARGET FRAMES.
-function SUIBossFrames()
+function LightUIBossFrames()
 	for i = 1, MAX_BOSS_FRAMES do
 		_G["Boss"..i.."TargetFrameTextureFrameDeadText"]:ClearAllPoints();
 		_G["Boss"..i.."TargetFrameTextureFrameDeadText"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrameHealthBar"],"CENTER",0,0);
 		_G["Boss"..i.."TargetFrameTextureFrameName"]:ClearAllPoints();
 		_G["Boss"..i.."TargetFrameTextureFrameName"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrameManaBar"],"CENTER",0,0);
-		_G["Boss"..i.."TargetFrameTextureFrameTexture"]:SetTexture("Interface\\Addons\\SUI\\inc\\media\\unitframes\\UI-UNITFRAME-BOSS");
+		_G["Boss"..i.."TargetFrameTextureFrameTexture"]:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-UNITFRAME-BOSS");
 		_G["Boss"..i.."TargetFrameNameBackground"]:Hide();
 		_G["Boss"..i.."TargetFrameHealthBar"]:SetSize(116,18);
 		_G["Boss"..i.."TargetFrameHealthBar"]:ClearAllPoints();
@@ -319,16 +319,16 @@ function SUIBossFrames()
 		_G["Boss"..i.."TargetFrameTextureFrameManaBarText"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrameManaBar"],"CENTER",0,0);
 	end
 end
-SUIBossFrames();
+LightUIBossFrames();
 
-function SUIBossFramesText()
+function LightUIBossFramesText()
 		for i = 1, MAX_BOSS_FRAMES do
 			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextLeft"]:SetText(" ");
 			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextRight"]:SetText(" ");
 			_G["Boss"..i.."TargetFrameTextureFrameManaBarText"]:SetText(" ");
 		end
 end
-hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", SUIBossFramesText)
+hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", LightUIBossFramesText)
 
 --STATUS TEXT FORMAT.
 hooksecurefunc("TextStatusBar_UpdateTextStringWithValues",function(self,_,value,_,maxValue)
@@ -396,14 +396,14 @@ end)
 local unit = {}
 local AURA_START_X = 5
 local AURA_START_Y = 28
-local LARGE_AURA_SIZE = SUIDB.UNITFRAMES.LBUFF	--	Default 21.
-local SMALL_AURA_SIZE = SUIDB.UNITFRAMES.SBUFF		--	Default 17.
+local LARGE_AURA_SIZE = LightUIDB.UNITFRAMES.LBUFF	--	Default 21.
+local SMALL_AURA_SIZE = LightUIDB.UNITFRAMES.SBUFF		--	Default 17.
 local AURA_OFFSET_Y = 3;
 local AURA_ROW_WIDTH = 122;
 local NUM_TOT_AURA_ROWS = 2;
 
 --SIZE
-function SUIAuraResize(self, auraName, numAuras, numOppositeAuras, largeAuraList, updateFunc, maxRowWidth, offsetX, mirrorAurasVertically)
+function LightUIAuraResize(self, auraName, numAuras, numOppositeAuras, largeAuraList, updateFunc, maxRowWidth, offsetX, mirrorAurasVertically)
 	local size;
 	local offsetY = AURA_OFFSET_Y;
 	local rowWidth = 0;
@@ -435,10 +435,10 @@ function SUIAuraResize(self, auraName, numAuras, numOppositeAuras, largeAuraList
 		end
 	end
 end
-hooksecurefunc("TargetFrame_UpdateAuraPositions", SUIAuraResize)
+hooksecurefunc("TargetFrame_UpdateAuraPositions", LightUIAuraResize)
 
 --BUFF ANCHOR
-function SUIBuffAnchor(self, buffName, index, numDebuffs, anchorIndex, size, offsetX, offsetY, mirrorVertically)
+function LightUIBuffAnchor(self, buffName, index, numDebuffs, anchorIndex, size, offsetX, offsetY, mirrorVertically)
 	local point, relativePoint
 	local startY, auraOffsetY
 
@@ -480,10 +480,10 @@ function SUIBuffAnchor(self, buffName, index, numDebuffs, anchorIndex, size, off
 	buff:SetWidth(size)
 	buff:SetHeight(size)
 end
-hooksecurefunc("TargetFrame_UpdateBuffAnchor", SUIBuffAnchor)
+hooksecurefunc("TargetFrame_UpdateBuffAnchor", LightUIBuffAnchor)
 
 --DEBUFF ANCHOR
-function SUIDebuffAnchor(self, debuffName, index, numBuffs, anchorIndex, size, offsetX, offsetY, mirrorVertically)
+function LightUIDebuffAnchor(self, debuffName, index, numBuffs, anchorIndex, size, offsetX, offsetY, mirrorVertically)
 	local buff = _G[debuffName .. index]
 	local isFriend = UnitIsFriend("player", self.unit)
 
@@ -532,7 +532,7 @@ function SUIDebuffAnchor(self, debuffName, index, numBuffs, anchorIndex, size, o
 	debuffFrame:SetWidth(size + 2)
 	debuffFrame:SetHeight(size + 2)
 end
-hooksecurefunc("TargetFrame_UpdateDebuffAnchor", SUIDebuffAnchor)
+hooksecurefunc("TargetFrame_UpdateDebuffAnchor", LightUIDebuffAnchor)
 
 --PET
 PetFrameHealthBar:ClearAllPoints()
