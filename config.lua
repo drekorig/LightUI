@@ -11,11 +11,11 @@ print("Welcome to |cfff58cbaLight|r|cff009cffUI|r use |CFFFE8A0E/LightUI|r for O
 --SavedVariables Defaults
 local defaults = {
 	A_SMARTKITTY = true,
-	A_UNITFRAMES = true,
+	A_UNITFRAMES = false,
 	A_PARTYFRAMES = true,
 	A_CLASSCOLORS = true,
 	A_CASTBARS = true,
-	A_VIEWPORT = true,
+	A_VIEWPORT = false,
 	A_HOTKEYS = true,
 	A_MACROS = true,
 	A_FONTS = false,
@@ -25,10 +25,9 @@ local defaults = {
 	A_CHAT = true,
 	A_RANGE = true,
 	A_SHORTBAR = true,
-	A_TOOLTIP = true,
+	A_TOOLTIP = false,
 	A_TABBINDER = false,
 	A_SAFEQUEUE = true,
-	A_SHOWRAID = false,
 	A_HOVERBIND = false,
 	A_ITEMLEVEL = true,
 	A_INCOMBAT = false,
@@ -544,7 +543,7 @@ local function LightUICONFIGSHOW()
 	--SPACE
 	LightUICreateTXT("",LightUIConfig,"TOPLEFT",180,-295)
 
-	LightUICreateCB("ShowRaid",LightUITXT,"Show RaidFrame without group","A_SHOWRAID")
+	LightUICreateCB("ShowViewport",LightUITXT,"Show top and bottom Viewports","A_VIEWPORT")
 	LightUICreateCB("InCombat",LightUICheckbox,"Incombat Symbols on UnitFrames","A_INCOMBAT")
 	LightUICreateCB("Charlinks",LightUICheckbox,"Charlinks on UnitFrame Menu","A_CHARLINKS")
 	LightUICreateCB("HoverBind",LightUICheckbox,"/hb to bind Keys on Actionbar","A_HOVERBIND")
