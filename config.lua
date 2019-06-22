@@ -61,23 +61,23 @@ local defaults = {
 	PLAYER = {
 		POINT = "CENTER",
 		PARENT = "UIParent",
-		RELPOINT = "BOTTOMLEFT",
-		X = 0,
-		Y = 0,
+		RELPOINT = "CENTER",
+		X = -290,
+		Y = -180,
 	},
 	TARGET = {
 		POINT = "CENTER",
 		PARENT = "UIParent",
-		RELPOINT = "BOTTOMLEFT",
-		X = 0,
-		Y = 0,
+		RELPOINT = "CENTER",
+		X = 290,
+		Y = -180,
 	},
 	PLAYERCASTBAR = {
 		POINT = "CENTER",
 		PARENT = "UIParent",
 		RELPOINT = "CENTER",
 		X = 0,
-		Y = -105,
+		Y = -160,
 		TIMER = true,
 	},
 	TARGETCASTBAR = {
@@ -85,7 +85,7 @@ local defaults = {
 		PARENT = "UIParent",
 		RELPOINT = "CENTER",
 		X = 0,
-		Y = -60,
+		Y = -45,
 		TIMER = true,
 	},
 	FOCUSCASTBAR = {
@@ -103,10 +103,10 @@ local defaults = {
 		OLDSYMBOL = false,
 		HIDEGARNI = true,
 		POINT = "BOTTOM",
-		PARENT = "UIParent",
+		PARENT = "MainMenuBarHolderFrame",
 		RELPOINT = "BOTTOM",
 		X = 0,
-		Y = 4,
+		Y = -4,
 	},
 	STATS = {
 		ACTIV = true,
@@ -344,36 +344,6 @@ LightUICreateConfig()
 
 --LightUI SHOW
 local function LightUICONFIGSHOW()
-	--GRID
-	--
-	f = CreateFrame('Frame', nil, UIParent)
-	f:SetAllPoints(UIParent)
-	local w = GetScreenWidth() / 64
-	local h = GetScreenHeight() / 36
-	for i = 0, 64 do
-		local t = f:CreateTexture(nil, 'BACKGROUND')
-		if i == 32 then
-			t:SetColorTexture(1, 1, 0, 0.5)
-		else
-			t:SetColorTexture(1, 1, 1, 0.15)
-		end
-		t:SetPoint('TOPLEFT', f, 'TOPLEFT', i * w - 1, 0)
-		t:SetPoint('BOTTOMRIGHT', f, 'BOTTOMLEFT', i * w + 1, 0)
-		f:SetFrameStrata("HIGH")
-	end
-	for i = 0, 36 do
-		local t = f:CreateTexture(nil, 'BACKGROUND')
-		if i == 18 then
-			t:SetColorTexture(1, 1, 0, 0.5)
-		else
-			t:SetColorTexture(1, 1, 1, 0.15)
-		end
-		t:SetPoint('TOPLEFT', f, 'TOPLEFT', 0, -i * h + 1)
-		t:SetPoint('BOTTOMRIGHT', f, 'TOPRIGHT', 0, -i * h - 1)
-		f:SetFrameStrata("LOW")
-	end
-	--]]
-
 	--Backdrop
 	local backdrop = {
 		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
@@ -509,7 +479,6 @@ local function LightUICONFIGSHOW()
 	)
 	--]]
 
-	--[[
 	LightUICreateBTN("Edit","BOTTOMLEFT",LightUIConfig,"BOTTOMRIGHT",-116,35,100,25)
 	LightUIBTN:SetScript(
 		"OnClick",
@@ -518,7 +487,6 @@ local function LightUICONFIGSHOW()
 			LightUIEDIT()
 		end
 	)
-	--]]
 
 	--[[
 	LightUICreateBTN("UI Color","BOTTOMLEFT",LightUIConfig,"BOTTOMRIGHT",-116,65,100,25)
