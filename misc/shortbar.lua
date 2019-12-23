@@ -12,8 +12,6 @@ invisible:EnableMouse(false)
 invisible:Hide()
 
 local BlizzArt = {
-	MainMenuBarArtFrameBackground.BackgroundLarge,
-	MainMenuBarArtFrameBackground.BackgroundSmall,
 	MainMenuBarTexture0,
 	MainMenuBarTexture1,
 	MainMenuBarTexture2,
@@ -39,11 +37,12 @@ local BlizzArt = {
 	--OverrideActionBarDivider2,
 	--OverrideActionBarEndCapR,
 	--OverrideActionBarEndCapL,
-	--MainMenuBarArtFrame.PageNumber,
 	--ActionBarUpButton,
 	--ActionBarDownButton,
 	StanceBarLeft,
 	StanceBarRight,
+	MainMenuBarLeftEndCap,
+	MainMenuBarRightEndCap,
 	--ReputationWatchBar,
 	--MainMenuExpBar,
 	--ArtifactWatchBar,
@@ -54,9 +53,12 @@ for _, frame in pairs(BlizzArt) do
 	frame:SetParent(invisible)
 end
 
+_G.MultiBarLeft.SetScale = function(self) end
+_G.MultiBarRight.SetScale = function(self) end
+
 local holder = CreateFrame("Frame", "MainMenuBarHolderFrame", UIParent, "SecureHandlerStateTemplate")
 holder:SetSize(size * 12 + spacing * 11 + Minimap:GetWidth() + 72 , size)
-holder:SetPoint("BOTTOM", UIParent, 0, 175)
+holder:SetPoint("BOTTOM", UIParent, 0, 200)
 holder:RegisterEvent("PLAYER_LOGIN")
 holder:RegisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -92,8 +94,8 @@ PetActionBarFrame:SetWidth(size)
 PetActionBarFrame:SetHeight(size)
 
 -- Possess Bar
-PossessButton1:ClearAllPoints()
-PossessButton1:SetPoint("BOTTOMLEFT", MultiBarBottomRightButton1, "TOPLEFT", size/2, 2 * spacing)
+--PossessButton1:ClearAllPoints()
+--PossessButton1:SetPoint("BOTTOMLEFT", MultiBarBottomRightButton1, "TOPLEFT", size/2, 2 * spacing)
 
 for i = 1, NUM_ACTIONBAR_BUTTONS do
 	local ab = _G["ActionButton" .. i]
@@ -125,28 +127,53 @@ for i = 1, NUM_ACTIONBAR_BUTTONS do
 end
 
 -- Bar's Page number
-MainMenuBarArtFrame.PageNumber:ClearAllPoints();
-MainMenuBarArtFrame.PageNumber:SetPoint("LEFT", ActionButton1, "LEFT", size/-2, 0);
-MainMenuBarArtFrame.PageNumber.SetPoint = function() end
-MainMenuBarArtFrame.PageNumber.ClearAllPoints = function() end
+if MainMenuBarPageNumber then
+	MainMenuBarPageNumber:ClearAllPoints();
+	MainMenuBarPageNumber:SetPoint("LEFT", ActionButton1, "LEFT", size/-2, 0);
+	MainMenuBarPageNumber.SetPoint = function() end
+	MainMenuBarPageNumber.ClearAllPoints = function() end
+
+	ActionBarUpButton:ClearAllPoints();
+	ActionBarUpButton:SetPoint("LEFT", ActionButton12, "TOP", size/2, -4*spacing);
+	ActionBarUpButton.SetPoint = function() end
+	ActionBarUpButton.ClearAllPoints = function() end
+
+	ActionBarDownButton:ClearAllPoints();
+	ActionBarDownButton:SetPoint("LEFT", ActionButton12, "BOTTOM", size/2, 3*spacing);
+	ActionBarDownButton.SetPoint = function() end
+	ActionBarDownButton.ClearAllPoints = function() end
+else
+	MainMenuBarArtFrame.PageNumber:ClearAllPoints();
+	MainMenuBarArtFrame.PageNumber:SetPoint("LEFT", ActionButton1, "LEFT", size/-2, 0);
+	MainMenuBarArtFrame.PageNumber.SetPoint = function() end
+	MainMenuBarArtFrame.PageNumber.ClearAllPoints = function() end
+end
 
 -- XP & Reputation bars
 local SetPoint = getmetatable(MainMenuBar).__index.SetPoint
+MainMenuBar:ClearAllPoints();
+SetPoint(MainMenuBar, 'TOP', UIParent, 'TOP', 0, -12)
+--ReputationWatchBar:SetSize(WorldFrame:GetWidth(), 10)
+--MainMenuExpBar:SetSize(WorldFrame:GetWidth()/2, 8)
+MainMenuBar:SetSize(1,1)
+CharacterMicroButton:ClearAllPoints();
+CharacterMicroButton:SetPoint('BOTTOMLEFT', UIParent, 'BOTTOMLEFT', 4, 4)
+
 hooksecurefunc(MainMenuBar, 'SetPoint', function()
     MainMenuBar:ClearAllPoints();
-	SetPoint(MainMenuBar, 'TOP', UIParent, 'TOP', 0, 48)
+	SetPoint(MainMenuBar, 'BOTTOM', UIParent, 'BOTTOM', 0, 12)
 	MultiBarBottomLeft:ClearAllPoints();
 	SetPoint(MultiBarBottomLeft, 'TOP', UIParent, 'TOP', 0, 48)
 	OverrideActionBar:ClearAllPoints();
 	SetPoint(OverrideActionBar, 'BOTTOM', UIParent, 'BOTTOM', 0, 170)
 end);
 -- Bags
-MicroButtonAndBagsBar.MicroBagBar:Hide();
---MainMenuBarBackpackButton:ClearAllPoints();
---MainMenuBarBackpackButton:SetPoint("LEFT", CharacterMicroButton, "LEFT", -1.5 * size, 0);
---MainMenuBarBackpackButton:SetHeight(30)
---MainMenuBarBackpackButton:SetWidth(32)
---CharacterBag0Slot:ClearAllPoints();
---CharacterBag0Slot:SetPoint("Right", MainMenuBarBackpackButton, "LEFT", -spacing, 0);
+if MainMenuBarOverlayFrame then
+	MainMenuBarOverlayFrame:Hide()
+	MainMenuBarBackpackButton:ClearAllPoints();
+	MainMenuBarBackpackButton:SetPoint('BOTTOMRIGHT', UIParent, 'BOTTOMRIGHT', -4, 4)
+else
+	MicroButtonAndBagsBar.MicroBagBar:Hide();
+end
 
 end)

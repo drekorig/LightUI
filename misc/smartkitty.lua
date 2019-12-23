@@ -1,3 +1,5 @@
+if not LightUIDB.A_SMARTKITTY == true then return end
+
 local combatInfo = {
     ["order"] = {
         "Rake",

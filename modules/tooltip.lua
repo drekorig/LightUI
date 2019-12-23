@@ -124,12 +124,6 @@ local function OnTooltipSetUnit(self)
   end
   --color tooltip textleft2..8
   GameTooltipTextLeft2:SetTextColor(unpack(cfg.textColor))
-  GameTooltipTextLeft3:SetTextColor(unpack(cfg.textColor))
-  GameTooltipTextLeft4:SetTextColor(unpack(cfg.textColor))
-  GameTooltipTextLeft5:SetTextColor(unpack(cfg.textColor))
-  GameTooltipTextLeft6:SetTextColor(unpack(cfg.textColor))
-  GameTooltipTextLeft7:SetTextColor(unpack(cfg.textColor))
-  GameTooltipTextLeft8:SetTextColor(unpack(cfg.textColor))
   --position raidicon
   --local raidIconIndex = GetRaidTargetIndex(unit)
   --if raidIconIndex then
@@ -153,9 +147,6 @@ local function OnTooltipSetUnit(self)
     local levelLine
     if string.find(GameTooltipTextLeft2:GetText() or "empty", "%a%s%d") then
       levelLine = GameTooltipTextLeft2
-    elseif string.find(GameTooltipTextLeft3:GetText() or "empty", "%a%s%d") then
-      GameTooltipTextLeft2:SetTextColor(unpack(cfg.guildColor)) --seems like the npc has a description, use the guild color for this
-      levelLine = GameTooltipTextLeft3
     end
     if levelLine then
       local l = UnitLevel(unit)
@@ -187,10 +178,12 @@ local function OnTooltipSetUnit(self)
       GameTooltipTextLeft2:SetTextColor(unpack(cfg.guildColor))
       GameTooltipTextLeft2:SetFormattedText("<%s>|cff7f7f7f %s", GameTooltipTextLeft2:GetText(), guildRank)
     end
-    local levelLine = unitGuild and GameTooltipTextLeft3 or GameTooltipTextLeft2
+    local levelLine = unitGuild and GameTooltipTextLeft2
     local l = UnitLevel(unit)
     local color = GetCreatureDifficultyColor((l > 0) and l or 999)
-    levelLine:SetTextColor(color.r, color.g, color.b)
+    if levelLine then
+      levelLine:SetTextColor(color.r, color.g, color.b)
+    end
     --afk?
     if UnitIsAFK(unit) then
       self:AppendText((" |cff%s<AFK>|r"):format(cfg.afkColorHex))

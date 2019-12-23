@@ -26,8 +26,6 @@ ChatFrameMenuButton:HookScript("OnShow", ChatFrameMenuButton.Hide)
 --ChatFrameMenuButton:Hide()
 
 --QuickJoinToastButton:Hide()
-QuickJoinToastButton.Show = function()
-end
 
 --[[ChatFrameMenuButton:Hide()
 ChatFrameMenuButton.Show = function()
@@ -72,16 +70,6 @@ local function ProcessFrame(frame)
 
 	local cf = _G[name]
 
-	local tt = _G[name .. "ThumbTexture"]
-	tt:Hide()
-	tt.Show = function()
-	end
-
-	local sb = cf["ScrollBar"]
-	sb:Hide()
-	sb.Show = function()
-	end
-
 	local s2bb = cf["ScrollToBottomButton"]
 	s2bb:Hide()
 	s2bb.Show = function()
@@ -89,52 +77,36 @@ local function ProcessFrame(frame)
 
 	cf:EnableMouse(1)
 	ChatFrameChannelButton:EnableMouse(1)
-	ChatFrameToggleVoiceDeafenButton:EnableMouse(1)
-	ChatFrameToggleVoiceMuteButton:EnableMouse(1)
 	ChatFrameChannelButton:SetAlpha(0)
-	ChatFrameToggleVoiceDeafenButton:SetAlpha(0)
-	ChatFrameToggleVoiceMuteButton:SetAlpha(0)
 
 	cf:SetScript("OnEnter", function(self)
 		ChatFrameChannelButton:SetAlpha(0.8)
-		ChatFrameToggleVoiceDeafenButton:SetAlpha(0.8)
-		ChatFrameToggleVoiceMuteButton:SetAlpha(0.8)
+		if ChatFrameToggleVoiceDeafenButton then
+			ChatFrameToggleVoiceDeafenButton:SetAlpha(0.8)
+			ChatFrameToggleVoiceMuteButton:SetAlpha(0.8)
+		end
 	end)
 	cf:SetScript("OnLeave", function(self)
 		ChatFrameChannelButton:SetAlpha(0)
-		ChatFrameToggleVoiceDeafenButton:SetAlpha(0)
-		ChatFrameToggleVoiceMuteButton:SetAlpha(0)
+		if ChatFrameToggleVoiceDeafenButton then
+			ChatFrameToggleVoiceDeafenButton:SetAlpha(0)
+			ChatFrameToggleVoiceMuteButton:SetAlpha(0)
+		end
 	end)
 
 	ChatFrameChannelButton:SetScript("OnEnter", function(self)
-	ChatFrameChannelButton:SetAlpha(0.8)
-	ChatFrameToggleVoiceDeafenButton:SetAlpha(0.8)
-	ChatFrameToggleVoiceMuteButton:SetAlpha(0.8)
+		ChatFrameChannelButton:SetAlpha(0.8)
+		if ChatFrameToggleVoiceDeafenButton then
+			ChatFrameToggleVoiceDeafenButton:SetAlpha(0.8)
+			ChatFrameToggleVoiceMuteButton:SetAlpha(0.8)
+		end
 	end)
 	ChatFrameChannelButton:SetScript("OnLeave", function(self)
-	ChatFrameChannelButton:SetAlpha(0)
-	ChatFrameToggleVoiceDeafenButton:SetAlpha(0)
-	ChatFrameToggleVoiceMuteButton:SetAlpha(0)
-	end)
-	ChatFrameToggleVoiceDeafenButton:SetScript("OnEnter", function(self)
-	ChatFrameChannelButton:SetAlpha(0.8)
-	ChatFrameToggleVoiceDeafenButton:SetAlpha(0.8)
-	ChatFrameToggleVoiceMuteButton:SetAlpha(0.8)
-	end)
-	ChatFrameToggleVoiceDeafenButton:SetScript("OnLeave", function(self)
-	ChatFrameChannelButton:SetAlpha(0)
-	ChatFrameToggleVoiceDeafenButton:SetAlpha(0)
-	ChatFrameToggleVoiceMuteButton:SetAlpha(0)
-	end)
-	ChatFrameToggleVoiceMuteButton:SetScript("OnEnter", function(self)
-	ChatFrameChannelButton:SetAlpha(0.8)
-	ChatFrameToggleVoiceDeafenButton:SetAlpha(0.8)
-	ChatFrameToggleVoiceMuteButton:SetAlpha(0.8)
-	end)
-	ChatFrameToggleVoiceMuteButton:SetScript("OnLeave", function(self)
-	ChatFrameChannelButton:SetAlpha(0)
-	ChatFrameToggleVoiceDeafenButton:SetAlpha(0)
-	ChatFrameToggleVoiceMuteButton:SetAlpha(0)
+		ChatFrameChannelButton:SetAlpha(0)
+		if ChatFrameToggleVoiceDeafenButton then
+				ChatFrameToggleVoiceDeafenButton:SetAlpha(0)
+				ChatFrameToggleVoiceMuteButton:SetAlpha(0)
+		end
 	end)
 
 	frames[frame] = true

@@ -114,8 +114,8 @@ hooksecurefunc("PlayerFrame_UpdateStatus",function()
 	PlayerPrestigePortrait:SetAlpha(0)
 	TargetFrameTextureFramePrestigeBadge:SetAlpha(0)
 	TargetFrameTextureFramePrestigePortrait:SetAlpha(0)
-	FocusFrameTextureFramePrestigeBadge:SetAlpha(0)
-	FocusFrameTextureFramePrestigePortrait:SetAlpha(0)
+--	FocusFrameTextureFramePrestigeBadge:SetAlpha(0)
+--	FocusFrameTextureFramePrestigePortrait:SetAlpha(0)
 end)
 end
 
@@ -150,14 +150,16 @@ function LightUIPlayerFrame(self)
 	self.manabar.RightText:ClearAllPoints();
 	self.manabar.RightText:SetPoint("RIGHT",self.manabar,"RIGHT",-5,0);
 	self.manabar.TextString:SetPoint("CENTER",self.manabar,"CENTER",0,0);
-	self.manabar.FullPowerFrame.SpikeFrame.AlertSpikeStay:ClearAllPoints();
-	self.manabar.FullPowerFrame.SpikeFrame.AlertSpikeStay:SetPoint("CENTER", self.manabar.FullPowerFrame, "RIGHT", -6, -3);
-	self.manabar.FullPowerFrame.SpikeFrame.AlertSpikeStay:SetSize(30,29);
-	self.manabar.FullPowerFrame.PulseFrame:ClearAllPoints();
-	self.manabar.FullPowerFrame.PulseFrame:SetPoint("CENTER", self.manabar.FullPowerFrame,"CENTER",-6,-2);
-	self.manabar.FullPowerFrame.SpikeFrame.BigSpikeGlow:ClearAllPoints();
-	self.manabar.FullPowerFrame.SpikeFrame.BigSpikeGlow:SetPoint("CENTER",self.manabar.FullPowerFrame,"RIGHT",5,-4);
-	self.manabar.FullPowerFrame.SpikeFrame.BigSpikeGlow:SetSize(30,50);
+	if self.manabar.FullPowerFrame then
+		self.manabar.FullPowerFrame.SpikeFrame.AlertSpikeStay:ClearAllPoints();
+		self.manabar.FullPowerFrame.SpikeFrame.AlertSpikeStay:SetPoint("CENTER", self.manabar.FullPowerFrame, "RIGHT", -6, -3);
+		self.manabar.FullPowerFrame.SpikeFrame.AlertSpikeStay:SetSize(30,29);
+		self.manabar.FullPowerFrame.PulseFrame:ClearAllPoints();
+		self.manabar.FullPowerFrame.PulseFrame:SetPoint("CENTER", self.manabar.FullPowerFrame,"CENTER",-6,-2);
+		self.manabar.FullPowerFrame.SpikeFrame.BigSpikeGlow:ClearAllPoints();
+		self.manabar.FullPowerFrame.SpikeFrame.BigSpikeGlow:SetPoint("CENTER",self.manabar.FullPowerFrame,"RIGHT",5,-4);
+		self.manabar.FullPowerFrame.SpikeFrame.BigSpikeGlow:SetSize(30,50);
+	end
 	PlayerFrameGroupIndicatorText:ClearAllPoints();
 	PlayerFrameGroupIndicatorText:SetPoint("BOTTOMLEFT", PlayerFrame,"TOP",0,-20);
 	PlayerFrameGroupIndicatorLeft:Hide();
@@ -172,7 +174,11 @@ function LightUITargetFrames (self, forceNormalTexture)
 	self.highLevelTexture:SetPoint("CENTER", self.levelText, "CENTER", 0,0);
 	self.deadText:SetPoint("CENTER", self.healthbar, "CENTER",0,0);
 	self.nameBackground:Hide();
-	self.threatIndicator:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Flash");
+	if threatIndicator then
+		self.threatIndicator:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Flash");
+		self.threatNumericIndicator:SetPoint("BOTTOM", PlayerFrame, "TOP", 72, -21);
+		FocusFrame.threatNumericIndicator:SetAlpha(0);
+	end
 	self.name:SetPoint("LEFT", self, 15, 36);
 	self.healthbar:SetSize(119, 26);
 	self.healthbar:SetPoint("TOPLEFT", 5, -24);
@@ -185,8 +191,6 @@ function LightUITargetFrames (self, forceNormalTexture)
 	self.manabar.RightText:ClearAllPoints();
 	self.manabar.RightText:SetPoint("RIGHT", self.manabar, "RIGHT", -5, 0);
 	self.manabar.TextString:SetPoint("CENTER", self.manabar, "CENTER", 0, 0);
-	self.threatNumericIndicator:SetPoint("BOTTOM", PlayerFrame, "TOP", 72, -21);
-	FocusFrame.threatNumericIndicator:SetAlpha(0);
 	if ( forceNormalTexture ) then
 		self.borderTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame");
 	elseif ( classification == "minus" ) then
@@ -251,17 +255,19 @@ function LightUITargetFrames (self, forceNormalTexture)
     TargetFrameToTHealthBar:SetHeight(10);
     TargetFrameToTManaBar:ClearAllPoints();
     TargetFrameToTManaBar:SetPoint("TOPLEFT", 45, -25);
-    TargetFrameToTManaBar:SetHeight(5);
-	FocusFrameToTTextureFrameDeadText:ClearAllPoints();
-	FocusFrameToTTextureFrameDeadText:SetPoint("CENTER", "FocusFrameToTHealthBar" ,"CENTER",1, 0);
-	FocusFrameToTTextureFrameName:SetSize(65,10);
-	FocusFrameToTTextureFrameTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetofTargetFrame");
-	FocusFrameToTHealthBar:ClearAllPoints();
-    FocusFrameToTHealthBar:SetPoint("TOPLEFT", 43, -15);
-    FocusFrameToTHealthBar:SetHeight(10);
-    FocusFrameToTManaBar:ClearAllPoints();
-    FocusFrameToTManaBar:SetPoint("TOPLEFT", 43, -25);
-    FocusFrameToTManaBar:SetHeight(5);
+	TargetFrameToTManaBar:SetHeight(5);
+	if FocusFrameToTTextureFrameDeadText then
+		FocusFrameToTTextureFrameDeadText:ClearAllPoints();
+		FocusFrameToTTextureFrameDeadText:SetPoint("CENTER", "FocusFrameToTHealthBar" ,"CENTER",1, 0);
+		FocusFrameToTTextureFrameName:SetSize(65,10);
+		FocusFrameToTTextureFrameTexture:SetTexture("Interface\\Addons\\LightUI\\media\\unitframes\\UI-TargetofTargetFrame");
+		FocusFrameToTHealthBar:ClearAllPoints();
+		FocusFrameToTHealthBar:SetPoint("TOPLEFT", 43, -15);
+		FocusFrameToTHealthBar:SetHeight(10);
+		FocusFrameToTManaBar:ClearAllPoints();
+		FocusFrameToTManaBar:SetPoint("TOPLEFT", 43, -25);
+		FocusFrameToTManaBar:SetHeight(5);
+	end
 
 end
 hooksecurefunc("TargetFrame_CheckClassification", LightUITargetFrames)
@@ -305,28 +311,32 @@ function LightUIBossFrames()
 		_G["Boss"..i.."TargetFrameManaBar"]:SetSize(116,18);
 		_G["Boss"..i.."TargetFrameManaBar"]:ClearAllPoints();
 		_G["Boss"..i.."TargetFrameManaBar"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrame"],"CENTER",-51,-3);
-		_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextLeft"]:ClearAllPoints();
-		_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextLeft"]:SetPoint("LEFT",_G["Boss"..i.."TargetFrameHealthBar"],"LEFT",0,0);
-		_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextRight"]:ClearAllPoints();
-		_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextRight"]:SetPoint("RIGHT",_G["Boss"..i.."TargetFrameHealthBar"],"RIGHT",0,0);
-		_G["Boss"..i.."TargetFrameTextureFrameHealthBarText"]:ClearAllPoints();
-		_G["Boss"..i.."TargetFrameTextureFrameHealthBarText"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrameHealthBar"],"CENTER",0,0);
-		_G["Boss"..i.."TargetFrameTextureFrameManaBarTextLeft"]:ClearAllPoints();
-		_G["Boss"..i.."TargetFrameTextureFrameManaBarTextLeft"]:SetPoint("LEFT",_G["Boss"..i.."TargetFrameManaBar"],"LEFT",0,0);
-		_G["Boss"..i.."TargetFrameTextureFrameManaBarTextRight"]:ClearAllPoints();
-		_G["Boss"..i.."TargetFrameTextureFrameManaBarTextRight"]:SetPoint("RIGHT",_G["Boss"..i.."TargetFrameManaBar"],"RIGHT",0,0);
-		_G["Boss"..i.."TargetFrameTextureFrameManaBarText"]:ClearAllPoints();
-		_G["Boss"..i.."TargetFrameTextureFrameManaBarText"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrameManaBar"],"CENTER",0,0);
+		if _G["Boss"..i.."TargetFrameTextureFrameHealthBarTextLeft"] then
+			_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextLeft"]:ClearAllPoints();
+			_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextLeft"]:SetPoint("LEFT",_G["Boss"..i.."TargetFrameHealthBar"],"LEFT",0,0);
+			_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextRight"]:ClearAllPoints();
+			_G["Boss"..i.."TargetFrameTextureFrameHealthBarTextRight"]:SetPoint("RIGHT",_G["Boss"..i.."TargetFrameHealthBar"],"RIGHT",0,0);
+			_G["Boss"..i.."TargetFrameTextureFrameHealthBarText"]:ClearAllPoints();
+			_G["Boss"..i.."TargetFrameTextureFrameHealthBarText"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrameHealthBar"],"CENTER",0,0);
+			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextLeft"]:ClearAllPoints();
+			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextLeft"]:SetPoint("LEFT",_G["Boss"..i.."TargetFrameManaBar"],"LEFT",0,0);
+			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextRight"]:ClearAllPoints();
+			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextRight"]:SetPoint("RIGHT",_G["Boss"..i.."TargetFrameManaBar"],"RIGHT",0,0);
+			_G["Boss"..i.."TargetFrameTextureFrameManaBarText"]:ClearAllPoints();
+			_G["Boss"..i.."TargetFrameTextureFrameManaBarText"]:SetPoint("CENTER",_G["Boss"..i.."TargetFrameManaBar"],"CENTER",0,0);
+		end
 	end
 end
 LightUIBossFrames();
 
 function LightUIBossFramesText()
-		for i = 1, MAX_BOSS_FRAMES do
+	for i = 1, MAX_BOSS_FRAMES do
+		if _G["Boss"..i.."TargetFrameTextureFrameManaBarTextLeft"] then
 			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextLeft"]:SetText(" ");
 			_G["Boss"..i.."TargetFrameTextureFrameManaBarTextRight"]:SetText(" ");
 			_G["Boss"..i.."TargetFrameTextureFrameManaBarText"]:SetText(" ");
 		end
+	end
 end
 hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", LightUIBossFramesText)
 
@@ -364,19 +374,22 @@ hooksecurefunc("TextStatusBar_UpdateTextStringWithValues",function(self)
 end
 
 if UnitExists("target") and UnitIsDead("target") or UnitIsGhost("target") then
-	TargetFrameTextureFrameHealthBarText:SetFontObject(GameFontNormalSmall);
-	if GetCVar("statusTextDisplay")=="BOTH" then
-		TargetFrameTextureFrameHealthBarText:Show();
-	end
-	for i, v in pairs({	TargetFrameHealthBar.LeftText, TargetFrameHealthBar.RightText, TargetFrameManaBar.LeftText, TargetFrameManaBar.RightText, TargetFrameTextureFrameManaBarText, TargetFrameManaBar }) do v:SetAlpha(0); end
-	if UnitIsGhost("target") then
-		TargetFrameTextureFrameHealthBarText:SetText(ghostText);
+	if TargetFrameTextureFrameHealthBarText then
+		TargetFrameTextureFrameHealthBarText:SetFontObject(GameFontNormalSmall);
+		if GetCVar("statusTextDisplay")=="BOTH" then
+			TargetFrameTextureFrameHealthBarText:Show();
+		end
+		for i, v in pairs({	TargetFrameHealthBar.LeftText, TargetFrameHealthBar.RightText, TargetFrameManaBar.LeftText, TargetFrameManaBar.RightText, TargetFrameTextureFrameManaBarText, TargetFrameManaBar }) do v:SetAlpha(0); end
+		if UnitIsGhost("target") then
+			TargetFrameTextureFrameHealthBarText:SetText(ghostText);
+		end
 	end
 elseif not UnitIsDead("target") and not UnitIsGhost("target") then
-	TargetFrameTextureFrameHealthBarText:SetFontObject(TextStatusBarText);
-	for i, v in pairs({	TargetFrameHealthBar.LeftText, TargetFrameHealthBar.RightText, TargetFrameManaBar.LeftText, TargetFrameManaBar.RightText, TargetFrameTextureFrameManaBarText, TargetFrameManaBar }) do v:SetAlpha(1); end
+	if TargetFrameTextureFrameHealthBarText then
+		TargetFrameTextureFrameHealthBarText:SetFontObject(TextStatusBarText);
+		for i, v in pairs({	TargetFrameHealthBar.LeftText, TargetFrameHealthBar.RightText, TargetFrameManaBar.LeftText, TargetFrameManaBar.RightText, TargetFrameTextureFrameManaBarText, TargetFrameManaBar }) do v:SetAlpha(1); end
+	end
 end
-
 if UnitExists("focus") and UnitIsDead("focus") or UnitIsGhost("focus") then
 	FocusFrameTextureFrameHealthBarText:SetFontObject(GameFontNormalSmall);
 	if GetCVar("statusTextDisplay")=="BOTH" then
@@ -387,8 +400,10 @@ if UnitExists("focus") and UnitIsDead("focus") or UnitIsGhost("focus") then
 		FocusFrameTextureFrameHealthBarText:SetText(ghostText);
 	end
 elseif not UnitIsDead("focus") and not UnitIsGhost("focus") then
-	FocusFrameTextureFrameHealthBarText:SetFontObject(TextStatusBarText);
-	for i, v in pairs({	FocusFrameHealthBar.LeftText, FocusFrameHealthBar.RightText, FocusFrameManaBar.LeftText, FocusFrameManaBar.RightText, FocusFrameTextureFrameManaBarText, FocusFrameManaBar }) do v:SetAlpha(1); end
+	if FocusFrameTextureFrameHealthBarText then
+		FocusFrameTextureFrameHealthBarText:SetFontObject(TextStatusBarText);
+		for i, v in pairs({	FocusFrameHealthBar.LeftText, FocusFrameHealthBar.RightText, FocusFrameManaBar.LeftText, FocusFrameManaBar.RightText, FocusFrameTextureFrameManaBarText, FocusFrameManaBar }) do v:SetAlpha(1); end
+	end
 end
 end)
 

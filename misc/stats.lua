@@ -34,6 +34,13 @@ if not LightUIDB.A_STATS == true then return end
 
 StatsFrame:ClearAllPoints()
 StatsFrame:SetPoint(LightUIDB.STATS.POINT, LightUIDB.STATS.PARENT, LightUIDB.STATS.RELPOINT, LightUIDB.STATS.X , LightUIDB.STATS.Y)
+if MainMenuBarPerformanceBarFrame then
+	MainMenuBarPerformanceBarFrame:ClearAllPoints();
+	MainMenuBarPerformanceBarFrame:SetScale(.7)
+	MainMenuBarPerformanceBarFrame:SetPoint("LEFT", StatsFrame, "LEFT", -16, 0);
+	MainMenuBarPerformanceBarFrame.SetPoint = function() end
+	MainMenuBarPerformanceBarFrame.ClearAllPoints = function() end
+end
 
 --font
 local FONT = nil
@@ -241,9 +248,9 @@ local function update(self, elapsed)
 	if lastUpdate > 1 then
 		lastUpdate = 0
 		if showClock == true then
-			StatsFrame.text:SetText(getFPS() .. " " .. getLatency() .. " " .. getMail() .. " " .. getTime())
+			StatsFrame.text:SetText(getFPS() .. " " .. getLatency() .. " " .. getMail() .. " " .. getTime().. " " .. UnitXP("player") .. "/" .. UnitXPMax("player") .. "xp")
 		else
-			StatsFrame.text:SetText(getFPS() .. " " .. getLatency() .. " " .. getMail())
+			StatsFrame.text:SetText(getFPS() .. " " .. getLatency() .. " " .. getMail() .. " " .. UnitXP("player") .. "/" .. UnitXPMax("player") .. "xp")
 		end
 		self:SetWidth(StatsFrame.text:GetStringWidth())
 		self:SetHeight(StatsFrame.text:GetStringHeight())

@@ -207,13 +207,13 @@ CF:SetScript(
 						PlayerFrameAlternateManaBarRightBorder,
 						PaladinPowerBarFrameBG,
 						PaladinPowerBarFrameBankBG,
-						ComboPointPlayerFrame.Background,
-						ComboPointPlayerFrame.Combo1.PointOff,
-						ComboPointPlayerFrame.Combo2.PointOff,
-						ComboPointPlayerFrame.Combo3.PointOff,
-						ComboPointPlayerFrame.Combo4.PointOff,
-						ComboPointPlayerFrame.Combo5.PointOff,
-						ComboPointPlayerFrame.Combo6.PointOff,
+						--ComboPointPlayerFrame.Background,
+						--ComboPointPlayerFrame.Combo1.PointOff,
+						--ComboPointPlayerFrame.Combo2.PointOff,
+						--ComboPointPlayerFrame.Combo3.PointOff,
+						--ComboPointPlayerFrame.Combo4.PointOff,
+						--ComboPointPlayerFrame.Combo5.PointOff,
+						--ComboPointPlayerFrame.Combo6.PointOff,
 						AlternatePowerBarBorder,
 						AlternatePowerBarLeftBorder,
 						AlternatePowerBarRightBorder,
@@ -240,10 +240,10 @@ CF:SetScript(
 						Boss4TargetFrameSpellBar.Border,
 						Boss5TargetFrameSpellBar.Border,
 						CastingBarFrame.Border,
-						FocusFrameSpellBar.Border,
+						--FocusFrameSpellBar.Border,
 						TargetFrameSpellBar.Border,
-						StatusTrackingBarManager.SingleBarLargeUpper,
-						StatusTrackingBarManager.SingleBarSmallUpper,
+						--StatusTrackingBarManager.SingleBarLargeUpper,
+						--StatusTrackingBarManager.SingleBarSmallUpper,
 					}
 				) do
 					v:SetVertexColor(.15, .15, .15)
@@ -292,10 +292,12 @@ CF:SetScript(
 				PetHitIndicator:SetText(nil)
 				PetHitIndicator.SetText = function()
 				end
-				for _, child in pairs({WarlockPowerFrame:GetChildren()}) do
-					for _, region in pairs({child:GetRegions()}) do
-						if region:GetDrawLayer() == "BORDER" then
-							region:SetVertexColor(.15, .15, .15)
+				if WarlockPowerFrame then
+					for _, child in pairs({WarlockPowerFrame:GetChildren()}) do
+						for _, region in pairs({child:GetRegions()}) do
+							if region:GetDrawLayer() == "BORDER" then
+								region:SetVertexColor(.15, .15, .15)
+							end
 						end
 					end
 				end
@@ -306,11 +308,11 @@ CF:SetScript(
 			-- COLORING THE MAIN BAR
 			for i, v in pairs(
 				{
-					MicroButtonAndBagsBar.MicroBagBar,
-					MainMenuBarArtFrameBackground.BackgroundLarge,
-					MainMenuBarArtFrameBackground.BackgroundSmall,
-					StatusTrackingBarManager.SingleBarLarge,
-					StatusTrackingBarManager.SingleBarSmall,
+					--MicroButtonAndBagsBar.MicroBagBar,
+					--MainMenuBarArtFrameBackground.BackgroundLarge,
+					--MainMenuBarArtFrameBackground.BackgroundSmall,
+					--StatusTrackingBarManager.SingleBarLarge,
+					--StatusTrackingBarManager.SingleBarSmall,
 					SlidingActionBarTexture0,
 					SlidingActionBarTexture1,
 					MainMenuBarTexture0,
@@ -361,7 +363,6 @@ local CF = CreateFrame("Frame")
 local _, instanceType = IsInInstance()
 CF:RegisterEvent("ADDON_LOADED")
 CF:RegisterEvent("PLAYER_ENTERING_WORLD")
-CF:RegisterEvent("ARENA_PREP_OPPONENT_SPECIALIZATIONS")
 CF:SetScript(
 	"OnEvent",
 	function(self, event, addon)

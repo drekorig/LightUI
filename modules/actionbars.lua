@@ -485,10 +485,11 @@ local function init()
     styleStanceButton(_G["StanceButton" .. i])
   end
   --possess buttons
-  for i = 1, NUM_POSSESS_SLOTS do
-    stylePossessButton(_G["PossessButton" .. i])
+  if NUM_POSSESS_SLOTS then
+    for i = 1, NUM_POSSESS_SLOTS do
+      stylePossessButton(_G["PossessButton" .. i])
+    end
   end
-
 
   --hide stancebarbackground
   --[[
@@ -504,18 +505,23 @@ local function init()
 
   --extraactionbutton1
   styleExtraActionButton(ExtraActionButton1)
-  styleExtraActionButton(ZoneAbilityFrame.SpellButton)
-  --spell flyout
-  SpellFlyoutBackgroundEnd:SetTexture(nil)
-  SpellFlyoutHorizontalBackground:SetTexture(nil)
-  SpellFlyoutVerticalBackground:SetTexture(nil)
-  local function checkForFlyoutButtons(self)
-    local NUM_FLYOUT_BUTTONS = 10
-    for i = 1, NUM_FLYOUT_BUTTONS do
-      styleActionButton(_G["SpellFlyoutButton" .. i])
-    end
+  if ZoneAbilityFrame then
+    styleExtraActionButton(ZoneAbilityFrame.SpellButton)
   end
-  SpellFlyout:HookScript("OnShow", checkForFlyoutButtons)
+  --spell flyout
+
+  if ZoneAbilityFrame then
+    SpellFlyoutBackgroundEnd:SetTexture(nil)
+    SpellFlyoutHorizontalBackground:SetTexture(nil)
+    SpellFlyoutVerticalBackground:SetTexture(nil)
+    local function checkForFlyoutButtons(self)
+      local NUM_FLYOUT_BUTTONS = 10
+      for i = 1, NUM_FLYOUT_BUTTONS do
+        styleActionButton(_G["SpellFlyoutButton" .. i])
+      end
+    end
+    SpellFlyout:HookScript("OnShow", checkForFlyoutButtons)
+  end
 
   --dominos styling
   if dominos then

@@ -1,4 +1,4 @@
-local LightUI=CreateFrame("Frame")
+local LightUI=CreateFrame("Frame", "LightUI_ViewPortFrame", WorldFrame)
 LightUI:RegisterEvent("PLAYER_LOGIN")
 LightUI:SetScript("OnEvent", function(self, event)
 
@@ -12,7 +12,7 @@ local function blackbox(point1, point2, point3, point4)
 	frame:SetFrameStrata("BACKGROUND")
 	frame:SetPoint(point1, UIParent, point1)
 	frame:SetPoint(point2, UIParent, point2)
-	frame:SetPoint(point3, WorldFrame, point4)
+	frame:SetPoint(point3, LightUI, point4)
 	frame:Show()
 end
 

@@ -61,11 +61,15 @@ LightUI:SetScript("OnEvent",function(self, event)
 			end
 
 			if LightUIDB.MINIMAP.HIDEGARNI == true then
+        if GarrisonLandingPageMinimapButton then
 				GarrisonLandingPageMinimapButton:UnregisterAllEvents()
-				GarrisonLandingPageMinimapButton:ClearAllPoints()
+        GarrisonLandingPageMinimapButton:ClearAllPoints()
+        end
 			end
 
 			--Hide regions
+			MinimapBackdrop:SetWidth(1)
+			MinimapCluster:SetWidth(1)
 			MinimapBorder:Hide()
 			MinimapBorderTop:Hide()
 			MinimapZoomIn:Hide()
@@ -73,10 +77,12 @@ LightUI:SetScript("OnEvent",function(self, event)
 			MiniMapWorldMapButton:Hide()
 			GameTimeFrame:Hide()
 			GameTimeFrame:UnregisterAllEvents()
-			GameTimeFrame.Show = kill
-			MiniMapTracking:Hide()
-			MiniMapTracking.Show = kill
-			MiniMapTracking:UnregisterAllEvents()
+      GameTimeFrame.Show = kill
+      if MiniMapTracking then
+			  MiniMapTracking:Hide()
+			  MiniMapTracking.Show = kill
+        MiniMapTracking:UnregisterAllEvents()
+      end
 
 			--Blizzard_TimeManager
 			LoadAddOn("Blizzard_TimeManager")
@@ -86,9 +92,10 @@ LightUI:SetScript("OnEvent",function(self, event)
 			TimeManagerClockTicker:SetFont(STANDARD_TEXT_FONT,12,"OUTLINE")
 			TimeManagerClockTicker:SetTextColor(0.8,0.8,0.6,1)
 
-			QueueStatusMinimapButton:ClearAllPoints();
-			QueueStatusMinimapButton:SetPoint("LEFT", Minimap, "LEFT", -22, 30);
-
+      if QueueStatusMinimapButton then
+        QueueStatusMinimapButton:ClearAllPoints();
+        QueueStatusMinimapButton:SetPoint("LEFT", Minimap, "LEFT", -22, 30);
+      end
 			-- BattlefieldMapFrame
 			if not BattlefieldMapFrame then
 				LoadAddOn("Blizzard_BattlefieldMapFrame")BattlefieldMap_LoadUI();
